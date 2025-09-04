@@ -1,0 +1,435 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Evita barras laterales y recorta excedentes del carrusel 3D */
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "Tagesschrift", system-ui;
+  background: #ffbd7e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  -webkit-tap-highlight-color: transparent;
+  overflow-y: auto;
+  /* scroll vertical normal */
+}
+
+.carousel-container {
+  width: 100%;
+  max-width: 1000px;
+  height: clamp(380px, 62vh, 540px);
+  /* un poco más bajo para que todo quepa */
+  position: relative;
+  perspective: 1500px;
+  overflow: hidden;
+  /* clave: corta lo que se sale con el 3D */
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.card {
+  width: min(84vw, 320px);
+  /* ancho fluido */
+  height: min(74vh, 410px);
+  /* alto fluido controlado */
+  background: rgba(255, 255, 255, 1.0);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  border: solid #5C4033 8px;
+  overflow: hidden;
+  /* evita desbordes de imagen en móvil */
+}
+
+.card:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.card-content {
+  padding: 20px;
+  text-align: center;
+  color: #333;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.example img {
+  display: block;
+  margin: 0px auto 0;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 15px;
+}
+
+.word {
+  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.25rem);
+  font-weight: 700;
+  color: #b71c1c;
+  margin-bottom: 8px;
+  text-transform: capitalize;
+}
+
+.gender {
+  font-size: clamp(0.9rem, 0.8rem + 0.4vw, 1rem);
+  color: #555;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.meaning {
+  font-size: clamp(1rem, 0.9rem + 0.6vw, 1.25rem);
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.example {
+  font-size: clamp(0.9rem, 0.85rem + 0.2vw, 1rem);
+  color: #444;
+  margin-bottom: 8px;
+  font-style: italic;
+}
+
+.translation {
+  font-size: 1.1em;
+  color: #666;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(183, 28, 28, 0.1), rgba(225, 196, 215, 0.2));
+  z-index: -1;
+  border-radius: 20px;
+}
+
+.controls1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+  /* menos margen para no empujar el layout */
+  z-index: 10;
+  gap: 16px;
+  flex-wrap: nowrap;
+  /* evita salto a 2da línea (que genera scroll) */
+}
+
+.controls1 button {
+  background: crimson;
+  color: white;
+  border: none;
+  width: clamp(44px, 8vw, 56px);
+  height: clamp(44px, 8vw, 56px);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.controls1 button:hover {
+  background: #8e0000;
+  transform: scale(1.1);
+}
+
+/* Music Player */
+.music-player {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #5C4033;
+  width: 100%;
+  max-width: 480px;
+  /* un pelín más estrecho para mobile-first */
+  padding: 10px 20px;
+  /* más compacto */
+  border-radius: 20px;
+  margin-bottom: 32px;
+  /* antes 80px: esto evitaba “scroll fantasma” */
+  margin-top: 10px;
+  background: rgba(255, 255, 255, .25);
+  backdrop-filter: blur(4px);
+}
+
+.music-player h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.music-player p {
+  font-size: 1rem;
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+/* Music Player Progress */
+#progress {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 7px;
+  background: rgba(163, 162, 164, 0.4);
+  border-radius: 4px;
+  margin: 24px 0 16px;
+  /* compactado */
+  cursor: pointer;
+}
+
+#progress::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #5C4033;
+  width: 16px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  outline: 4px solid var(--primary-clr);
+  box-shadow: 0 6px 10px rgba(5, 36, 28, 0.3);
+}
+
+.album-cover {
+  width: 90%;
+}
+
+/* Swiper (si lo usas) */
+.swiper {
+  width: 100%;
+  padding: 40px 0 30px;
+}
+
+.swiper-slide {
+  position: relative;
+  max-width: 200px;
+  aspect-ratio: 1/1;
+  border-radius: 10px;
+}
+
+.swiper-slide img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  -webkit-box-reflect: below -5px linear-gradient(transparent, transparent, rgba(0, 0, 0, 0.4));
+  transform-origin: center;
+  transform: perspective(800px);
+  transition: 0.3s ease-out;
+  pointer-events: none;
+  user-select: none;
+}
+
+.swiper-slide-active .overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 98%;
+  background-color: rgba(28, 22, 37, 0.6);
+  border-radius: inherit;
+  opacity: 0;
+  transition: all 0.4s linear;
+}
+
+.swiper-slide:hover .overlay {
+  opacity: 1;
+}
+
+.swiper-slide .overlay ion-icon {
+  opacity: 0;
+}
+
+.swiper-slide-active:hover .overlay ion-icon {
+  font-size: 4rem;
+  color: #eb0b0b;
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* Music Player Controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  aspect-ratio: 1/1;
+  margin: 16px;
+  /* menos margen */
+  background: rgba(163, 162, 164, 0.3);
+  color: var(--primary-clr);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  outline: 0;
+  font-size: 1.1rem;
+  box-shadow: 0 10px 20px rgba(5, 36, 28, 0.3);
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.controls button:is(:hover, :focus-visible) {
+  transform: scale(0.96);
+}
+
+.controls button:nth-child(2) {
+  transform: scale(1.3);
+}
+
+.controls button:nth-child(2):is(:hover, :focus-visible) {
+  transform: scale(1.25);
+}
+
+.hidden {
+  display: none;
+}
+
+.locked {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.song-info {
+  color: transparent;
+}
+
+.backward i {
+  color: #5C4033;
+}
+
+.play-pause-btn i {
+  color: #5C4033;
+}
+
+.forward i {
+  color: #5C4033;
+}
+
+/* Breakpoints */
+@media (max-width: 768px) {
+  .carousel-container {
+    height: clamp(420px, 64vh, 560px);
+  }
+
+  .card {
+    width: min(88vw, 300px);
+    height: min(72vh, 380px);
+  }
+
+  .controls1 {
+    margin-top: 12px;
+    gap: 12px;
+  }
+
+  .music-player {
+    max-width: 440px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+
+  /* fijo en desktop para estabilidad del efecto 3D si lo usas */
+  .card {
+    width: 320px;
+    height: 420px;
+  }
+}
+
+/* ==== Volume Control ==== */
+.volume {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.mute-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  aspect-ratio: 1/1;
+  background: rgba(163, 162, 164, 0.3);
+  color: #5C4033;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 20px rgba(5, 36, 28, 0.3);
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.mute-btn:hover {
+  transform: scale(0.96);
+}
+
+#volume {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  background: rgba(163, 162, 164, 0.4);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* WebKit */
+#volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #5C4033;
+  width: 14px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  outline: 4px solid transparent;
+  box-shadow: 0 6px 10px rgba(5, 36, 28, 0.3);
+}
+
+/* Firefox */
+#volume::-moz-range-thumb {
+  background: #5C4033;
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 6px 10px rgba(5, 36, 28, 0.3);
+}
+
+#volumeValue {
+  font-size: 0.9rem;
+  color: #5C4033;
+  opacity: 0.75;
+  min-width: 42px;
+  /* evita “bailes” de layout */
+  text-align: right;
+}

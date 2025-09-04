@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>NIKOLE</title>
+
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tagesschrift&display=swap');
+  </style>
+</head>
+
+<body>
+  <div class="carousel-container">
+    <div class="carousel" id="carousel">
+      <div class="card">
+        <div class="card-content">
+          <div class="example"><img src="assets/1.png" alt="" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="example"><img src="assets/8.png" alt="" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="example"><img src="assets/3.png" alt="" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="example"><img src="assets/9.png" alt="" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="example"><img src="assets/5.png" alt="" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="example"><img src="assets/4.png" alt="" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="example"><img src="assets/6.png" alt="" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="example"><img src="assets/7.png" alt="" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="example"><img src="assets/2.png" alt="" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="example"><img src="assets/10.png" alt="" loading="lazy"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls1">
+    <button class="prev" id="prev">←</button>
+    <button class="next" id="next">→</button>
+  </div>
+
+  <div class="music-player">
+    <h1 id="song-title"></h1>
+    <p id="song-artist"></p>
+
+    <!-- Audio sin <source> -->
+    <audio id="song"></audio>
+
+    <input type="range" value="0" id="progress" />
+
+    <!-- Volumen -->
+    <div class="volume">
+      <button class="mute-btn" aria-label="Mute/Unmute">
+        <i class="fa-solid fa-volume-high" id="volumeIcon"></i>
+      </button>
+
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+
+      <span id="volumeValue">100%</span>
+    </div>
+
+
+    <div class="controls">
+      <button class="backward">
+        <i class="fa-solid fa-backward"></i>
+      </button>
+      <button class="play-pause-btn">
+        <i class="fa-solid fa-play" id="controlIcon"></i>
+      </button>
+      <button class="forward">
+        <i class="fa-solid fa-forward"></i>
+      </button>
+    </div>
+
+    <div class="timer">
+      <p id="timerText"></p>
+    </div>
+  </div>
+
+  <!-- GSAP si lo usas en tu script.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- Tu script de carrusel/animaciones si lo tienes -->
+  <script src="./script.js"></script>
+
+  <!-- Lógica del reproductor -->
+  <script src="music.js"></script>
+</body>
+
+</html>
