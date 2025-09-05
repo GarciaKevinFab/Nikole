@@ -19,6 +19,7 @@ const songs = [
   { title: "Alguien Como Tú", name: "Jósean Log", source: "Alguien.mp3" },
   { title: "Flores", name: "LATIN MAFIA", source: "FLORES.mp3" },
   { title: "Stand By Me", name: "Ben E. King", source: "Ben.mp3" },
+  { title: "Busca Por Dentro", name: "Grupo Niche", source: "Dentro.mp3" },
   { title: "Interesante", name: "Gonzalo Genek, Lui5", source: "INTERESANTE.mp3" },
   { title: "Si Hay Algo", name: "Jósean Log", source: "Algo.mp3" },
 ];
